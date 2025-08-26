@@ -1,0 +1,601 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Common rose/cylc problems &#8212; 21st Century Weather Software Wiki</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UM/common_problems';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AUS2200 - A complete guide" href="../aus2200/models-aus2200.html" />
+    <link rel="prev" title="Trouble Shooting" href="trouble-shooting.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-light.png" class="logo__image only-light" alt="21st Century Weather Software Wiki - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="21st Century Weather Software Wiki - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running atmospheric simulations using ACCESS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rose-cylc/rose-cylc-intro.html">Introduction to Rose/Cylc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mosrs/mosrs-intro.html">MOSRS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="UM-intro.html">The Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trouble-shooting.html">Trouble Shooting</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Common rose/cylc problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aus2200/models-aus2200.html">AUS2200 - A complete guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../NRI-RNS/intro.html">Regional Atmospheric Modeling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/ancillaries.html">Ancillary tools</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/outputs.html">Model Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/evaluating.html">Evaluating the Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/further-considerations.html">Further Considerations</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python/intro-python.html">Intro to Python for Climate Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/file_formats.html">CSV vs TXT vs Parquet: Choosing the Right File Format in Python for Tabular Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/polars-intro.html">An Introduction to Fast Data Analysis with the Polars Library in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/concurrent_futures.html">Parallelism in Python using concurrent futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/testing.html">Testing your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/package-structure.html">Structuring our Python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/netcdf_zarr_storage_best_practices.html">Best Practices for Storing NetCDF and Zarr Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/xarray_zarr.html">Using Zarr with Xarray for Scalable Scientific Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with Gadi</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gadi/getting-started.html">Getting started on gadi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/mac-stuff.html">Working with gadi via your Mac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/moving-data.html">Transferring data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/rudu-usage.html">Rudu: Basic Usage</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/catalogs.html">Data catalogs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/weather_objects.html">ERA5-based Weather Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mesaclip.html">MESACLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mmleav2.html">MMLEAv2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/energy.html">Energy Demand dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/drought-era5.html">ERA5 Drought</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/daily-era5.html">ERA5 daily</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/gsmap.html">GSMaP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/himawari-ahi.html">Himawari-AHI cloud type data</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/git-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-alone.html">Working with Git alone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-team.html">Working with Git in a team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-notebooks.html">Tracking changes on jupyter notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://creatorapp.zohopublic.com.au/21centuryweather/w21c-clever/form-perma/Wiki_Feedback_Form/dNjCfQET7NjEgyE6GATZgRXhqOUEnHtsANkEZSJ54Cp8ry74xBHQQz6AvfOYhOXmJqdP35fBSjdbdnFx5ySvxFurqPPzBnnXjSw8">Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/UM/common_problems.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Common rose/cylc problems</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist-for-running-rose-cylc">Checklist for running rose/cylc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-run-suite-ip-and-key-verification-error">Cannot run suite - IP and key verification error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-fail-to-submit">Jobs fail to submit.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-submitted-but-not-running">Jobs submitted but not running</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-suite-files-doesn-t-update-the-suite-behaviour">Editing suite files doesn’t update the suite behaviour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-login-to-a-persistent-session">Cannot login to a persistent session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-locate-files-when-running-a-rose-cylc-suite">Cannot locate files when running a rose/cylc suite</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="common-rose-cylc-problems">
+<h1>Common rose/cylc problems<a class="headerlink" href="#common-rose-cylc-problems" title="Link to this heading">#</a></h1>
+<p>This will be a maintained list of problems encountered (and fixed) with running <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> ACCESS tasks.</p>
+<section id="checklist-for-running-rose-cylc">
+<h2>Checklist for running rose/cylc<a class="headerlink" href="#checklist-for-running-rose-cylc" title="Link to this heading">#</a></h2>
+<p>Before diagnosing any <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> problems, check</p>
+<ul class="simple">
+<li><p>You are running <code class="docutils literal notranslate"><span class="pre">rose</span></code> on a persistent session</p></li>
+<li><p>Your <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project has available compute and storage</p></li>
+<li><p>Your home directory isn’t full.</p></li>
+<li><p>You have run through all the <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> tutorials.</p></li>
+</ul>
+</section>
+<section id="cannot-run-suite-ip-and-key-verification-error">
+<h2>Cannot run suite - IP and key verification error<a class="headerlink" href="#cannot-run-suite-ip-and-key-verification-error" title="Link to this heading">#</a></h2>
+<p>If your <code class="docutils literal notranslate"><span class="pre">rose</span> <span class="pre">suite-run</span></code> command fails with output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">WARN</span><span class="p">]</span> <span class="ne">Warning</span><span class="p">:</span> <span class="n">the</span> <span class="n">ED25519</span> <span class="n">host</span> <span class="n">key</span> <span class="k">for</span> <span class="s1">&#39;[&lt;your persistent session&gt;]:2222&#39;</span> <span class="n">differs</span> <span class="kn">from</span><span class="w"> </span><span class="nn">the</span> <span class="n">key</span> <span class="k">for</span> <span class="n">the</span> <span class="n">IP</span> <span class="n">address</span> <span class="s1">&#39; [&lt;IP address&gt;]:2222&#39;</span>
+<span class="p">[</span><span class="n">WARN</span><span class="p">]</span> <span class="n">Offending</span> <span class="n">key</span> <span class="k">for</span> <span class="n">IP</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">known_hosts</span> <span class="n">files</span><span class="o">&gt;</span> <span class="mi">1</span>
+<span class="p">[</span><span class="n">WARN</span><span class="p">]</span> <span class="n">Matching</span> <span class="n">host</span> <span class="n">key</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">known_hosts</span> <span class="n">file</span><span class="o">&gt;</span> <span class="mi">3</span>
+<span class="p">[</span><span class="n">WARN</span><span class="p">]</span> <span class="n">Exiting</span><span class="p">,</span> <span class="n">you</span> <span class="n">have</span> <span class="n">requested</span> <span class="n">strict</span> <span class="n">checking</span><span class="o">.</span>
+<span class="p">[</span><span class="n">WARN</span><span class="p">]</span> <span class="n">Host</span> <span class="n">key</span> <span class="n">verification</span> <span class="n">failed</span><span class="o">.</span>
+<span class="p">[</span><span class="n">FAIL</span><span class="p">]</span> <span class="o">&lt;</span><span class="n">suite</span> <span class="nb">id</span><span class="o">&gt;</span><span class="p">:</span> <span class="n">does</span> <span class="ow">not</span> <span class="n">appear</span> <span class="n">to</span> <span class="n">be</span> <span class="n">running</span>
+</pre></div>
+</div>
+<p>You have tried to run a <code class="docutils literal notranslate"><span class="pre">rose</span></code> suite from a login node. Please try to run the suite again from a persistent session.</p>
+</section>
+<section id="jobs-fail-to-submit">
+<h2>Jobs fail to submit.<a class="headerlink" href="#jobs-fail-to-submit" title="Link to this heading">#</a></h2>
+<p>If your suite runs, but jobs fail to submit to the PBS queue, your <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project may not be associated with any compute resources.</p>
+<p><img alt="submit failed" src="../_images/submit-failed.png" /></p>
+<p>In this example, the small jobs sent to the <code class="docutils literal notranslate"><span class="pre">background</span></code> queue have been submitted and succeeded. The <code class="docutils literal notranslate"><span class="pre">background</span></code> jobs require no compute resources and run on a <code class="docutils literal notranslate"><span class="pre">gadi</span></code> login node. These can be simple tasks such as creating a symbolic link between an ancillary file in a central directory to your working directory in <code class="docutils literal notranslate"><span class="pre">~/cylc-run</span></code>.</p>
+<p>But any other job that requires compute resources will fail, because your default <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project doesn’t have any compute resources allocated to it.  (Some <code class="docutils literal notranslate"><span class="pre">gadi</span></code> projects are for storage only).</p>
+<p>To fix this, change the value of <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code> in you <code class="docutils literal notranslate"><span class="pre">gadi</span></code> configuration file to a project that</p>
+<ol class="arabic simple">
+<li><p>You have membership of</p></li>
+<li><p>Has sufficient computational resources available</p></li>
+</ol>
+<p>See <a class="reference external" href="https://opus.nci.org.au/spaces/Help/pages/230490489/FAQ...#FAQ...-'Permissiondenied'messagewhenworkingonanewproject.1">here</a> for further information on how to change your default project code on <code class="docutils literal notranslate"><span class="pre">gadi</span></code>.</p>
+<p>Make sure the persistent session you are running is also linked to a project with computational resources.</p>
+</section>
+<section id="jobs-submitted-but-not-running">
+<h2>Jobs submitted but not running<a class="headerlink" href="#jobs-submitted-but-not-running" title="Link to this heading">#</a></h2>
+<p>A common issue is that you start your <code class="docutils literal notranslate"><span class="pre">rose</span></code> suite, which submits various jobs, but they never run.</p>
+<p>i.e. the job state in the <code class="docutils literal notranslate"><span class="pre">cylc</span></code> GUI is ‘submitted’ and the job colour is bright green, but the job never begins running and never turns deep green.</p>
+<p>This is often caused by disk quota issues. If you have insufficient disk space, either in your home directory, your <code class="docutils literal notranslate"><span class="pre">/g/data/</span></code> or <code class="docutils literal notranslate"><span class="pre">/scratch</span></code> directories, your PBS job will not be allowed to run and will be held indefinitely.</p>
+<p>PBS jobs will also be held if there are insufficient project allocations (e.g. you’ve run out of ‘kSU’).</p>
+<p>See <a class="reference external" href="https://opus.nci.org.au/spaces/Help/pages/230490410/Why+are+my+jobs+not+running+">https://opus.nci.org.au/spaces/Help/pages/230490410/Why+are+my+jobs+not+running+</a>…</p>
+<p>for more details.</p>
+<p>To help manage your disk quota, use some of the commands in this link:</p>
+<p><a class="reference external" href="https://opus.nci.org.au/spaces/Help/pages/236880003/Basic+Navigation">https://opus.nci.org.au/spaces/Help/pages/236880003/Basic+Navigation</a>…</p>
+</section>
+<section id="editing-suite-files-doesn-t-update-the-suite-behaviour">
+<h2>Editing suite files doesn’t update the suite behaviour<a class="headerlink" href="#editing-suite-files-doesn-t-update-the-suite-behaviour" title="Link to this heading">#</a></h2>
+<p>If you are editing files within the <code class="docutils literal notranslate"><span class="pre">rose</span></code> suite, but these edits aren’t being reflected at runtime, you may have forgotten to <code class="docutils literal notranslate"><span class="pre">reload</span></code> the suite.</p>
+<p>Remember, the <code class="docutils literal notranslate"><span class="pre">rose</span></code> suite files that you checkout from the central MOSRS repository are stored in your <code class="docutils literal notranslate"><span class="pre">~/roses/&lt;suite-id&gt;</span></code> directory.</p>
+<p>But the files which control the suite at runtime are located in <code class="docutils literal notranslate"><span class="pre">~/cylc-run/&lt;suite-id&gt;</span></code>.</p>
+<p>You must execute <code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">rose</span> <span class="pre">suite-run</span> <span class="pre">--</span> <span class="pre">reload</span></code> to update the suite files that control runtime execution.</p>
+<p>See <a class="reference internal" href="trouble-shooting.html#broken-tasks"><span class="std std-ref">here</span></a> for an example.</p>
+</section>
+<section id="cannot-login-to-a-persistent-session">
+<h2>Cannot login to a persistent session<a class="headerlink" href="#cannot-login-to-a-persistent-session" title="Link to this heading">#</a></h2>
+<p>If you can’t login to your persistent session, you may have conflicting modules which don’t use the standard <code class="docutils literal notranslate"><span class="pre">ssh</span></code> environment at NCI. Often the cause of this conflict is the <code class="docutils literal notranslate"><span class="pre">conda/analysis</span></code> module developed by CLEX and maintained by ACCESS-NRI.  You will have to unload any conflicting modules.</p>
+<p>See <a class="reference internal" href="../mosrs/mosrs-intro.html#persistent-sessions"><span class="std std-ref">this link</span></a> for more information.</p>
+</section>
+<section id="cannot-locate-files-when-running-a-rose-cylc-suite">
+<h2>Cannot locate files when running a rose/cylc suite<a class="headerlink" href="#cannot-locate-files-when-running-a-rose-cylc-suite" title="Link to this heading">#</a></h2>
+<p>If you are having trouble accessing files within tasks triggered by a <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite, and you can view those files from a standard <code class="docutils literal notranslate"><span class="pre">gadi</span></code> login session, the problem is likely caused by the persistent sessions having insufficient <code class="docutils literal notranslate"><span class="pre">gadi</span></code> permissions.</p>
+<p>E.g. If you are using a persistent session created before you were a member of the <code class="docutils literal notranslate"><span class="pre">access</span></code> project, your <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite will be unable to locate any files on <code class="docutils literal notranslate"><span class="pre">/g/data/access</span></code> and hence will fail.</p>
+<p>The persistent session can’t automatically update your project permissions. It can only access the projects that were active when it was created.</p>
+<p>The solution to this problem is to delete your persistent session and create a new one, after you have joined the <code class="docutils literal notranslate"><span class="pre">access</span></code> project.</p>
+<p>This applies to any new <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project you have joined. You will have to restart your persistent session for these new project permissions to take effect.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./UM"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="trouble-shooting.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Trouble Shooting</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../aus2200/models-aus2200.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">AUS2200 - A complete guide</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checklist-for-running-rose-cylc">Checklist for running rose/cylc</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-run-suite-ip-and-key-verification-error">Cannot run suite - IP and key verification error</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-fail-to-submit">Jobs fail to submit.</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jobs-submitted-but-not-running">Jobs submitted but not running</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#editing-suite-files-doesn-t-update-the-suite-behaviour">Editing suite files doesn’t update the suite behaviour</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-login-to-a-persistent-session">Cannot login to a persistent session</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cannot-locate-files-when-running-a-rose-cylc-suite">Cannot locate files when running a rose/cylc suite</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather Software Engineering Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

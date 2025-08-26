@@ -1,0 +1,608 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Structuring our Python code &#8212; 21st Century Weather Software Wiki</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python/package-structure';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Best Practices for Storing NetCDF and Zarr Datasets" href="netcdf_zarr_storage_best_practices.html" />
+    <link rel="prev" title="Testing your code" href="testing.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-light.png" class="logo__image only-light" alt="21st Century Weather Software Wiki - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="21st Century Weather Software Wiki - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running atmospheric simulations using ACCESS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rose-cylc/rose-cylc-intro.html">Introduction to Rose/Cylc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mosrs/mosrs-intro.html">MOSRS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/UM-intro.html">The Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/trouble-shooting.html">Trouble Shooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/common_problems.html">Common rose/cylc problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aus2200/models-aus2200.html">AUS2200 - A complete guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../NRI-RNS/intro.html">Regional Atmospheric Modeling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/ancillaries.html">Ancillary tools</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/outputs.html">Model Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/evaluating.html">Evaluating the Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/further-considerations.html">Further Considerations</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro-python.html">Intro to Python for Climate Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_formats.html">CSV vs TXT vs Parquet: Choosing the Right File Format in Python for Tabular Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polars-intro.html">An Introduction to Fast Data Analysis with the Polars Library in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concurrent_futures.html">Parallelism in Python using concurrent futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing your code</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Structuring our Python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="netcdf_zarr_storage_best_practices.html">Best Practices for Storing NetCDF and Zarr Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xarray_zarr.html">Using Zarr with Xarray for Scalable Scientific Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with Gadi</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gadi/getting-started.html">Getting started on gadi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/mac-stuff.html">Working with gadi via your Mac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/moving-data.html">Transferring data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/rudu-usage.html">Rudu: Basic Usage</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/catalogs.html">Data catalogs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/weather_objects.html">ERA5-based Weather Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mesaclip.html">MESACLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mmleav2.html">MMLEAv2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/energy.html">Energy Demand dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/drought-era5.html">ERA5 Drought</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/daily-era5.html">ERA5 daily</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/gsmap.html">GSMaP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/himawari-ahi.html">Himawari-AHI cloud type data</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/git-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-alone.html">Working with Git alone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-team.html">Working with Git in a team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-notebooks.html">Tracking changes on jupyter notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://creatorapp.zohopublic.com.au/21centuryweather/w21c-clever/form-perma/Wiki_Feedback_Form/dNjCfQET7NjEgyE6GATZgRXhqOUEnHtsANkEZSJ54Cp8ry74xBHQQz6AvfOYhOXmJqdP35fBSjdbdnFx5ySvxFurqPPzBnnXjSw8">Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/python/package-structure.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Structuring our Python code</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability">Portability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-and-configuration-files">Environment and configuration files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-files">Python files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scripts">Scripts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ancils">Ancils</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="structuring-our-python-code">
+<h1>Structuring our Python code<a class="headerlink" href="#structuring-our-python-code" title="Link to this heading">#</a></h1>
+<p>So we’ve started building some <code class="docutils literal notranslate"><span class="pre">python</span></code> code on GitHub to help answer some of your research questions. Perhaps we’ve made a few subdirectories to separate notebooks from scripts, with another directory for <code class="docutils literal notranslate"><span class="pre">qsub</span></code> jobs etc.</p>
+<p>Now, what if we want to share this code with someone else?  Or if we want look at a colleague’s code and import it as modules within our own code?</p>
+<p>Give the interconnectivity of the <code class="docutils literal notranslate"><span class="pre">python</span></code> universe, which encompasses innumerable disciplines and applications (from climate science, machine learning, web development, all the way to embedded logic controllers at the CERN particle accelerators), has the <code class="docutils literal notranslate"><span class="pre">python</span></code> community arrived at common ways to structure <code class="docutils literal notranslate"><span class="pre">python</span></code> code packages?</p>
+<p>The answer, of course, is yes.</p>
+<section id="portability">
+<h2>Portability<a class="headerlink" href="#portability" title="Link to this heading">#</a></h2>
+<p>A key concept of code development is ‘portability’. Portability allows us to</p>
+<ul class="simple">
+<li><p>Run our code on different computing platforms (e.g. <code class="docutils literal notranslate"><span class="pre">gadi</span></code>, your laptop)</p></li>
+<li><p>Run our code on different environments</p></li>
+<li><p>Share our code with other users who can then run it</p></li>
+</ul>
+<p>When we first build our code, we will often ‘hard code’ segments of code related to directory paths, user directories etc. If we share this code with someone else, they will to scan through every line of code with an explicit path to a directory of file, that is unique to a filesystem on a given platform.</p>
+<p>A better way to manage input and output data flows is by using environment and configuration files.</p>
+<section id="environment-and-configuration-files">
+<h3>Environment and configuration files<a class="headerlink" href="#environment-and-configuration-files" title="Link to this heading">#</a></h3>
+<p>Let’s return to the solar code we discussed in the <a class="reference internal" href="concurrent_futures.html"><span class="std std-doc">parallel python</span></a> examples. The code to to analysis the solar irradiance data is located at</p>
+<p><a class="github reference external" href="https://github.com/21centuryweather/software_engineering_demos/tree/main/solar_example">21centuryweather/software_engineering_demos</a></p>
+<p>There are three files sitting in the main project directory <code class="docutils literal notranslate"><span class="pre">solar_example</span></code>:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="http://README.md">README.md</a></p></li>
+<li><p><a class="reference external" href="http://env.sh">env.sh</a></p></li>
+<li><p><a class="reference external" href="http://config.py">config.py</a></p></li>
+</ol>
+<p>The <code class="docutils literal notranslate"><span class="pre">README.md</span></code> is a markdown file which is self-explanatory. Anyone who is given your code should be able to view the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> file and understand what your code does. The length and complexity of the <code class="docutils literal notranslate"><span class="pre">README.md</span></code> should be appropriate for the complexity of the associated <code class="docutils literal notranslate"><span class="pre">python</span></code> project. Given that our <code class="docutils literal notranslate"><span class="pre">solar_example</span></code> code is very simple, our <code class="docutils literal notranslate"><span class="pre">README.md</span></code> is very succinct.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">env.sh</span></code> file is a <code class="docutils literal notranslate"><span class="pre">bash</span></code> script designed to help with ‘portability’. This file loads the <code class="docutils literal notranslate"><span class="pre">python</span></code> environment <code class="docutils literal notranslate"><span class="pre">analysis3</span></code> and then exports the definition of the project <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> directory, i.e. the location where a user has cloned this repository. When a user clones this code, all they have to do is change the definition of <code class="docutils literal notranslate"><span class="pre">ROOT</span></code> and the all other filepaths used by the <code class="docutils literal notranslate"><span class="pre">python</span></code> modules inside the project will be defined,</p>
+<p>We define the <code class="docutils literal notranslate"><span class="pre">MODULES</span></code> environment (where we store most of our <code class="docutils literal notranslate"><span class="pre">python</span></code> code) and then add this to the <code class="docutils literal notranslate"><span class="pre">python</span></code> <code class="docutils literal notranslate"><span class="pre">PATH</span></code> environment, which is a universal environment variable used by all <code class="docutils literal notranslate"><span class="pre">python</span></code> interpreters on Linux/Unix-based machines to search for <code class="docutils literal notranslate"><span class="pre">python</span></code> code.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Inside a <code class="docutils literal notranslate"><span class="pre">python</span></code> interactive session or notebook, the <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> variable defines the directories where the <code class="docutils literal notranslate"><span class="pre">python</span></code> interpreter searches for modules. All <code class="docutils literal notranslate"><span class="pre">python</span></code> interpreters automatically add the directories defined in <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> to <code class="docutils literal notranslate"><span class="pre">sys.path</span></code>.</p>
+</div>
+<p>We then <code class="docutils literal notranslate"><span class="pre">export</span></code> these variables so they are valid across all programs running in this current environment (whether it’s an interactive login session or inside the <code class="docutils literal notranslate"><span class="pre">PBS</span></code> job queue.)</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A <code class="docutils literal notranslate"><span class="pre">python</span></code> ‘module’ refers to a script (usually containing one or two functions) that can be imported by other sections of <code class="docutils literal notranslate"><span class="pre">python</span></code> code using the <code class="docutils literal notranslate"><span class="pre">import</span></code> statement.</p>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">env.sh</span></code> file helps any user on <code class="docutils literal notranslate"><span class="pre">gadi</span></code> deploy this package. However, the file itself assumes it will only be run on <code class="docutils literal notranslate"><span class="pre">gadi</span></code>, and all users will have <code class="docutils literal notranslate"><span class="pre">hh5</span></code> project membership.  If you wanted to run this project on other platform (e.g. your laptop) you would need to write separate environment file for that system. You might need to build a new directory (e.g. envs) to store several environment files, one for each computing platform.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">config.py</span></code> file is some <code class="docutils literal notranslate"><span class="pre">python</span></code> code that reads in the environment variables declared earlier in <code class="docutils literal notranslate"><span class="pre">env.sh</span></code> and also defines the location of the input and output data on <code class="docutils literal notranslate"><span class="pre">gadi</span></code>.</p>
+<p>This is designed so that all filepaths are defined in a single location. These filepaths (or more correctly, <code class="docutils literal notranslate"><span class="pre">python</span></code> <code class="docutils literal notranslate"><span class="pre">Path</span></code> objects) are then imported by every <code class="docutils literal notranslate"><span class="pre">python</span></code> script in this package. So any future users will not have to edit multiple files to use this code.</p>
+<p>If your python environment requirements are more complex, you can place <code class="docutils literal notranslate"><span class="pre">conda</span></code> configuration or other package requirement files here.</p>
+</section>
+<section id="python-files">
+<h3>Python files<a class="headerlink" href="#python-files" title="Link to this heading">#</a></h3>
+<p>The actual <code class="docutils literal notranslate"><span class="pre">python</span></code> code which defines this project is contained in the subdirectory <code class="docutils literal notranslate"><span class="pre">solar_example</span></code>. This might strike you as strange, as it means we have ‘doubled up’ on the project name, as we now have a local directory structure that looks like <code class="docutils literal notranslate"><span class="pre">/software_engineering_demos/solar_example/solar_example</span></code>. However, there are good reasons for doing this, and they are related to project namespaces and combining multiple packages (or directories) into a single <code class="docutils literal notranslate"><span class="pre">python</span></code> project. Maintaining this fine scale control over which directories we add to the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code> or <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> avoids us having to import too many modules, or conflicts occurring between modules which may have the same directory name</p>
+<p>See this <a class="reference external" href="https://www.reddit.com/r/learnpython/comments/12wf3qe/why_have_a_folder_with_the_same_name_as_your_root/">Reddit Post</a> for further discussion.</p>
+<p>In this project, there are three <code class="docutils literal notranslate"><span class="pre">python</span></code> source files, along with a special file <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code>.</p>
+<p>From the <a class="reference external" href="https://docs.python.org/3/tutorial/modules.html">official python docs</a>:</p>
+<p>“The <strong>init</strong>.py files are required to make Python treat directories containing the file as packages (unless using a namespace package, a relatively advanced feature). This prevents directories with a common name, such as string, from unintentionally hiding valid modules that occur later on the module search path.”</p>
+<p>The link explains the contents of the <code class="docutils literal notranslate"><span class="pre">__init__.py</span></code> file for our simple example. Entries in this file help control the scope of files to be imported and manage ‘intra-package’ references when using our package.</p>
+</section>
+<section id="scripts">
+<h3>Scripts<a class="headerlink" href="#scripts" title="Link to this heading">#</a></h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">/software_engineering_demos/solar_example/scripts/</span></code>, we have files which import the files contained in <code class="docutils literal notranslate"><span class="pre">/software_engineering_demos/solar_example/solar_example</span></code> as a module. We have a python script <code class="docutils literal notranslate"><span class="pre">concurrent_test.py</span></code> which can process the data inside an interactive python session (i.e. <code class="docutils literal notranslate"><span class="pre">iPython</span></code>). This script is discussed <a class="reference internal" href="concurrent_futures.html#an-example-using-concurrent-futures"><span class="std std-ref">here</span></a>. We also have a <code class="docutils literal notranslate"><span class="pre">bash</span></code> script <code class="docutils literal notranslate"><span class="pre">concurrent_test.sh.qsub</span></code> which can be submitted to the <code class="docutils literal notranslate"><span class="pre">PBS</span></code> queue on <code class="docutils literal notranslate"><span class="pre">gadi</span></code>.</p>
+</section>
+<section id="ancils">
+<h3>Ancils<a class="headerlink" href="#ancils" title="Link to this heading">#</a></h3>
+<p>Sometimes your package requires small ancillary files which are essential to the functioning of the package. In this case, we have a <code class="docutils literal notranslate"><span class="pre">.npz</span></code> file (which is a binary zipped archive of <code class="docutils literal notranslate"><span class="pre">python</span></code> <code class="docutils literal notranslate"><span class="pre">numpy</span></code> arrays) which defines the location of solar energy zones specific to the package. Small ancillary files (~ 100 Mb&gt;) can be stored within a package directory on GitHub. Typically we want to ensure the package repository itself remains &lt; 1 Gb, so if your package is reliant on larger ancillary files, special data storage repositories outside of GitHub would be required.</p>
+</section>
+<section id="tests">
+<h3>Tests<a class="headerlink" href="#tests" title="Link to this heading">#</a></h3>
+<p>As discussed <a class="reference internal" href="testing.html"><span class="std std-doc">here</span></a>, all good packages come with some simple test functions to ensure they are working as expected. These tests can be executed using <code class="docutils literal notranslate"><span class="pre">pytest</span></code> as discussed <a class="reference internal" href="testing.html#examples-with-pytest"><span class="std std-ref">here</span></a>. Testing is another component of ‘portability’, i.e. it ensures that shared code is deployed correctly across multiple users and platforms.</p>
+<p>The final directory structure of the <code class="docutils literal notranslate"><span class="pre">solar_example</span></code> package resembles this example, taken from <a class="reference external" href="https://dagster.io/blog/python-project-best-practices">here</a></p>
+<p><img alt="Sample project layout" src="../_images/project.png" /></p>
+</section>
+</section>
+<section id="conclusions">
+<h2>Conclusions<a class="headerlink" href="#conclusions" title="Link to this heading">#</a></h2>
+<p>The simple <code class="docutils literal notranslate"><span class="pre">solar_example</span></code> package provides a useful template for building <code class="docutils literal notranslate"><span class="pre">python</span></code> packages over the course of your research. Over time, you can add extra sub-directories to deal with extra complexity, but this structure is a good starting point.</p>
+<p>You can find more information here :</p>
+<p><a class="reference external" href="https://dagster.io/blog/python-project-best-practices">https://dagster.io/blog/python-project-best-practices</a></p>
+<p>and</p>
+<p><a class="reference external" href="https://docs.python-guide.org/writing/structure/">https://docs.python-guide.org/writing/structure/</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="testing.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Testing your code</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="netcdf_zarr_storage_best_practices.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Best Practices for Storing NetCDF and Zarr Datasets</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#portability">Portability</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-and-configuration-files">Environment and configuration files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-files">Python files</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#scripts">Scripts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ancils">Ancils</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tests">Tests</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusions">Conclusions</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather Software Engineering Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

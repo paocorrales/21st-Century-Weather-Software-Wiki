@@ -1,0 +1,731 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Best Practices for Storing NetCDF and Zarr Datasets &#8212; 21st Century Weather Software Wiki</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'python/netcdf_zarr_storage_best_practices';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Using Zarr with Xarray for Scalable Scientific Data" href="xarray_zarr.html" />
+    <link rel="prev" title="Structuring our Python code" href="package-structure.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-light.png" class="logo__image only-light" alt="21st Century Weather Software Wiki - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="21st Century Weather Software Wiki - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running atmospheric simulations using ACCESS</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rose-cylc/rose-cylc-intro.html">Introduction to Rose/Cylc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mosrs/mosrs-intro.html">MOSRS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/UM-intro.html">The Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/trouble-shooting.html">Trouble Shooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../UM/common_problems.html">Common rose/cylc problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aus2200/models-aus2200.html">AUS2200 - A complete guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../NRI-RNS/intro.html">Regional Atmospheric Modeling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/ancillaries.html">Ancillary tools</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/outputs.html">Model Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/evaluating.html">Evaluating the Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/further-considerations.html">Further Considerations</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro-python.html">Intro to Python for Climate Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_formats.html">CSV vs TXT vs Parquet: Choosing the Right File Format in Python for Tabular Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polars-intro.html">An Introduction to Fast Data Analysis with the Polars Library in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="concurrent_futures.html">Parallelism in Python using concurrent futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="package-structure.html">Structuring our Python code</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Best Practices for Storing NetCDF and Zarr Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xarray_zarr.html">Using Zarr with Xarray for Scalable Scientific Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with Gadi</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gadi/getting-started.html">Getting started on gadi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/mac-stuff.html">Working with gadi via your Mac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/moving-data.html">Transferring data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/rudu-usage.html">Rudu: Basic Usage</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/catalogs.html">Data catalogs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/weather_objects.html">ERA5-based Weather Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mesaclip.html">MESACLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mmleav2.html">MMLEAv2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/energy.html">Energy Demand dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/drought-era5.html">ERA5 Drought</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/daily-era5.html">ERA5 daily</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/gsmap.html">GSMaP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/himawari-ahi.html">Himawari-AHI cloud type data</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/git-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-alone.html">Working with Git alone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-team.html">Working with Git in a team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-notebooks.html">Tracking changes on jupyter notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://creatorapp.zohopublic.com.au/21centuryweather/w21c-clever/form-perma/Wiki_Feedback_Form/dNjCfQET7NjEgyE6GATZgRXhqOUEnHtsANkEZSJ54Cp8ry74xBHQQz6AvfOYhOXmJqdP35fBSjdbdnFx5ySvxFurqPPzBnnXjSw8">Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/python/netcdf_zarr_storage_best_practices.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Best Practices for Storing NetCDF and Zarr Datasets</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-netcdf-vs-zarr">1. Understanding NetCDF vs. Zarr</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-you-should-avoid-storing-thousands-of-tiny-netcdf-files">2. Why You Should Avoid Storing Thousands of Tiny NetCDF Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-many-small-files">Problems with Many Small Files:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better-practice">Better Practice:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenating-netcdf-files">3. Concatenating NetCDF Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-xarray-python">Using Xarray (Python):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-nco-netcdf-operators">Using NCO (NetCDF Operators):</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compressing-netcdf-and-zarr-data">4. Compressing NetCDF and Zarr Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf4-compression-via-xarray">NetCDF4 Compression via Xarray:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr-compression-with-blosc-recommended-for-zarr">Zarr Compression with Blosc (Recommended for Zarr):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr-specific-storage-considerations">5. Zarr-Specific Storage Considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigations">Mitigations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-tips-and-summary">6. Final Tips and Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="best-practices-for-storing-netcdf-and-zarr-datasets">
+<h1>Best Practices for Storing NetCDF and Zarr Datasets<a class="headerlink" href="#best-practices-for-storing-netcdf-and-zarr-datasets" title="Link to this heading">#</a></h1>
+<p>Managing large scientific datasets efficiently is essential in climate research and model simulation workflows. Two common formats for multidimensional array data—<strong>NetCDF</strong> and <strong>Zarr</strong>—each have their own strengths, but both require careful storage strategies to maximize performance, reduce costs, and preserve system stability.</p>
+<p>This post explores:</p>
+<ul class="simple">
+<li><p>How to store NetCDF and Zarr datasets effectively</p></li>
+<li><p>Why you should avoid storing thousands of tiny NetCDF files</p></li>
+<li><p>How to compress them</p></li>
+<li><p>How to consolidate data to save <strong>inode</strong> space and improve scalability</p></li>
+</ul>
+<hr class="docutils" />
+<section id="understanding-netcdf-vs-zarr">
+<h2>1. Understanding NetCDF vs. Zarr<a class="headerlink" href="#understanding-netcdf-vs-zarr" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Feature</p></th>
+<th class="head"><p>NetCDF</p></th>
+<th class="head"><p>Zarr</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>File format</p></td>
+<td><p>Binary (HDF5-based for NetCDF4)</p></td>
+<td><p>Directory-based or ZIP-like</p></td>
+</tr>
+<tr class="row-odd"><td><p>Read/write support</p></td>
+<td><p>Widely supported in C, Fortran, Python</p></td>
+<td><p>Native to Python; growing support in other languages</p></td>
+</tr>
+<tr class="row-even"><td><p>Parallel I/O</p></td>
+<td><p>NetCDF4: limited MPI-based I/O</p></td>
+<td><p>Zarr: supports cloud-native parallel access</p></td>
+</tr>
+<tr class="row-odd"><td><p>Chunking</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Compression</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes (via codecs like Blosc, Zstd)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Storage layout</p></td>
+<td><p>Monolithic file</p></td>
+<td><p>Nested directories</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="why-you-should-avoid-storing-thousands-of-tiny-netcdf-files">
+<h2>2. Why You Should Avoid Storing Thousands of Tiny NetCDF Files<a class="headerlink" href="#why-you-should-avoid-storing-thousands-of-tiny-netcdf-files" title="Link to this heading">#</a></h2>
+<p>A very common anti-pattern in scientific workflows is generating <strong>one NetCDF file per timestep</strong>—e.g., hourly outputs for multiple years. While this may seem modular and easy to manage, it leads to serious problems:</p>
+<section id="problems-with-many-small-files">
+<h3>Problems with Many Small Files:<a class="headerlink" href="#problems-with-many-small-files" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><strong>Inode exhaustion</strong>: HPCs and large file systems have a finite number of inodes (metadata structures for files). Creating millions of files exhausts them quickly.</p></li>
+<li><p><strong>Slow file system traversal</strong>: Accessing directories with many files is slow for users and programs.</p></li>
+<li><p><strong>NetCDF metadata overhead</strong>: Each file has a header, and the cumulative cost of repeatedly reading metadata adds up.</p></li>
+<li><p><strong>Harder to parallelize</strong>: Reading many small files creates an I/O bottleneck when parallel workers fight for disk access.</p></li>
+</ul>
+</section>
+<section id="better-practice">
+<h3>Better Practice:<a class="headerlink" href="#better-practice" title="Link to this heading">#</a></h3>
+<p>Instead, <strong>concatenate</strong> individual timesteps into a single file per time period (e.g., one NetCDF file per year or variable), or convert your dataset into a <strong>chunked Zarr store</strong> for optimized parallel access.</p>
+</section>
+</section>
+<hr class="docutils" />
+<section id="concatenating-netcdf-files">
+<h2>3. Concatenating NetCDF Files<a class="headerlink" href="#concatenating-netcdf-files" title="Link to this heading">#</a></h2>
+<p>To merge multiple NetCDF files along the <code class="docutils literal notranslate"><span class="pre">time</span></code> dimension:</p>
+<section id="using-xarray-python">
+<h3>Using Xarray (Python):<a class="headerlink" href="#using-xarray-python" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="n">ds</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_mfdataset</span><span class="p">(</span><span class="s2">&quot;file_*.nc&quot;</span><span class="p">,</span> <span class="n">combine</span><span class="o">=</span><span class="s1">&#39;by_coords&#39;</span><span class="p">)</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;merged.nc&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This drastically reduces the number of files, making the dataset easier to manage and more efficient to access.</p>
+</section>
+<section id="using-nco-netcdf-operators">
+<h3>Using NCO (NetCDF Operators):<a class="headerlink" href="#using-nco-netcdf-operators" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncrcat<span class="w"> </span>file_*.nc<span class="w"> </span>merged.nc
+</pre></div>
+</div>
+<p>Or for chronological order:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ncrcat<span class="w"> </span>-h<span class="w"> </span>-O<span class="w"> </span>-o<span class="w"> </span>merged.nc<span class="w"> </span>file_1980.nc<span class="w"> </span>file_1981.nc<span class="w"> </span>file_1982.nc
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="compressing-netcdf-and-zarr-data">
+<h2>4. Compressing NetCDF and Zarr Data<a class="headerlink" href="#compressing-netcdf-and-zarr-data" title="Link to this heading">#</a></h2>
+<p>Compression is essential to reduce disk usage and I/O time. Both NetCDF4 and Zarr support <strong>chunked compression</strong>, which stores data in compressed blocks (chunks).</p>
+<section id="netcdf4-compression-via-xarray">
+<h3>NetCDF4 Compression via Xarray:<a class="headerlink" href="#netcdf4-compression-via-xarray" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">comp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">zlib</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">complevel</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">encoding</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="n">comp</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">}</span>
+
+<span class="n">ds</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="s2">&quot;compressed.nc&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="zarr-compression-with-blosc-recommended-for-zarr">
+<h3>Zarr Compression with Blosc (Recommended for Zarr):<a class="headerlink" href="#zarr-compression-with-blosc-recommended-for-zarr" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numcodecs</span>
+<span class="n">compressor</span> <span class="o">=</span> <span class="n">numcodecs</span><span class="o">.</span><span class="n">Blosc</span><span class="p">(</span><span class="n">cname</span><span class="o">=</span><span class="s1">&#39;zstd&#39;</span><span class="p">,</span> <span class="n">clevel</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="n">numcodecs</span><span class="o">.</span><span class="n">Blosc</span><span class="o">.</span><span class="n">SHUFFLE</span><span class="p">)</span>
+
+<span class="n">encoding</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;compressor&quot;</span><span class="p">:</span> <span class="n">compressor</span><span class="p">}</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">ds</span><span class="o">.</span><span class="n">data_vars</span><span class="p">}</span>
+<span class="n">ds</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span><span class="o">.</span><span class="n">to_zarr</span><span class="p">(</span><span class="s2">&quot;output.zarr&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="n">encoding</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">clevel/complevel</span></code> can be 1 - 9, 1 being low-compression, 9 being high-compression. The higher the compression the longer it takes to save the data but the lower the storage required.</p>
+</section>
+<section id="tips">
+<h3>Tips:<a class="headerlink" href="#tips" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Use <strong>Zstandard (zstd)</strong> for best speed/compression balance.</p></li>
+<li><p>Avoid compressing coordinates—they’re small and often accessed.</p></li>
+<li><p>Chunk wisely: too many small chunks = overhead; too few = memory pressure.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="zarr-specific-storage-considerations">
+<h2>5. Zarr-Specific Storage Considerations<a class="headerlink" href="#zarr-specific-storage-considerations" title="Link to this heading">#</a></h2>
+<p>Zarr stores each chunk as a separate file. This makes it perfect for <strong>parallel cloud or object storage access</strong> but can still run into the many-small-file problem on traditional file systems.</p>
+<section id="mitigations">
+<h3>Mitigations:<a class="headerlink" href="#mitigations" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Combine chunks along multiple dimensions to reduce file count (e.g., time × lat)</p></li>
+<li><p>Use <strong>sharded Zarr V3</strong> (groups multiple chunks into shard files), this is in beta</p></li>
+<li><p>Write to <strong>Tar archives</strong> if storing on traditional file systems (e.g., <code class="docutils literal notranslate"><span class="pre">zarr.ZipStore</span></code> or <code class="docutils literal notranslate"><span class="pre">TarStore</span></code>)</p></li>
+</ul>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span><span class="o">.</span><span class="n">chunk</span><span class="p">({</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>  <span class="c1"># reduce file count</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="final-tips-and-summary">
+<h2>6. Final Tips and Summary<a class="headerlink" href="#final-tips-and-summary" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Recommendation</p></th>
+<th class="head"><p>Format</p></th>
+<th class="head"><p>Tool / Method</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Avoid small files</p></td>
+<td><p>NetCDF</p></td>
+<td><p>Use <code class="docutils literal notranslate"><span class="pre">ncrcat</span></code> / <code class="docutils literal notranslate"><span class="pre">xarray.open_mfdataset()</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Compress chunks</p></td>
+<td><p>Both</p></td>
+<td><p>Use <code class="docutils literal notranslate"><span class="pre">zlib</span></code> / <code class="docutils literal notranslate"><span class="pre">Blosc</span> <span class="pre">+</span> <span class="pre">zstd</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Store locally</p></td>
+<td><p>NetCDF</p></td>
+<td><p>Prefer single files per year</p></td>
+</tr>
+<tr class="row-odd"><td><p>Use shards</p></td>
+<td><p>Zarr v3</p></td>
+<td><p>Coming soon to Zarrv3/Xarray</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./python"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="package-structure.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Structuring our Python code</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="xarray_zarr.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Using Zarr with Xarray for Scalable Scientific Data</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#understanding-netcdf-vs-zarr">1. Understanding NetCDF vs. Zarr</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-you-should-avoid-storing-thousands-of-tiny-netcdf-files">2. Why You Should Avoid Storing Thousands of Tiny NetCDF Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problems-with-many-small-files">Problems with Many Small Files:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#better-practice">Better Practice:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenating-netcdf-files">3. Concatenating NetCDF Files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-xarray-python">Using Xarray (Python):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-nco-netcdf-operators">Using NCO (NetCDF Operators):</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#compressing-netcdf-and-zarr-data">4. Compressing NetCDF and Zarr Data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#netcdf4-compression-via-xarray">NetCDF4 Compression via Xarray:</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr-compression-with-blosc-recommended-for-zarr">Zarr Compression with Blosc (Recommended for Zarr):</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tips">Tips:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zarr-specific-storage-considerations">5. Zarr-Specific Storage Considerations</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mitigations">Mitigations:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-tips-and-summary">6. Final Tips and Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather Software Engineering Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

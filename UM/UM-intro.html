@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>The Unified Model &#8212; 21st Century Weather Software Wiki</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'UM/UM-intro';</script>
+    <link rel="icon" href="../_static/favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Trouble Shooting" href="trouble-shooting.html" />
+    <link rel="prev" title="MOSRS" href="../mosrs/mosrs-intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo-light.png" class="logo__image only-light" alt="21st Century Weather Software Wiki - Home"/>
+    <script>document.write(`<img src="../_static/logo-dark.png" class="logo__image only-dark" alt="21st Century Weather Software Wiki - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Running atmospheric simulations using ACCESS</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../rose-cylc/rose-cylc-intro.html">Introduction to Rose/Cylc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../mosrs/mosrs-intro.html">MOSRS</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">The Unified Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trouble-shooting.html">Trouble Shooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="common_problems.html">Common rose/cylc problems</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../aus2200/models-aus2200.html">AUS2200 - A complete guide</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../NRI-RNS/intro.html">Regional Atmospheric Modeling</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/ancillaries.html">Ancillary tools</a></li>
+
+
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/outputs.html">Model Outputs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/evaluating.html">Evaluating the Model</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../NRI-RNS/further-considerations.html">Further Considerations</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../python/intro-python.html">Intro to Python for Climate Science</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/file_formats.html">CSV vs TXT vs Parquet: Choosing the Right File Format in Python for Tabular Data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/polars-intro.html">An Introduction to Fast Data Analysis with the Polars Library in Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/concurrent_futures.html">Parallelism in Python using concurrent futures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/testing.html">Testing your code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/package-structure.html">Structuring our Python code</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/netcdf_zarr_storage_best_practices.html">Best Practices for Storing NetCDF and Zarr Datasets</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/xarray_zarr.html">Using Zarr with Xarray for Scalable Scientific Data</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Working with Gadi</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../gadi/getting-started.html">Getting started on gadi</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/mac-stuff.html">Working with gadi via your Mac</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/moving-data.html">Transferring data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gadi/rudu-usage.html">Rudu: Basic Usage</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Datasets</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../datasets/index.html">Datasets</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/catalogs.html">Data catalogs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/weather_objects.html">ERA5-based Weather Objects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mesaclip.html">MESACLIP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/mmleav2.html">MMLEAv2</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/energy.html">Energy Demand dataset</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/drought-era5.html">ERA5 Drought</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/daily-era5.html">ERA5 daily</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/gsmap.html">GSMaP</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../datasets/himawari-ahi.html">Himawari-AHI cloud type data</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Git</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../git/git-intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-alone.html">Working with Git alone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-team.html">Working with Git in a team</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../git/git-notebooks.html">Tracking changes on jupyter notebooks</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Feedback</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference external" href="https://creatorapp.zohopublic.com.au/21centuryweather/w21c-clever/form-perma/Wiki_Feedback_Form/dNjCfQET7NjEgyE6GATZgRXhqOUEnHtsANkEZSJ54Cp8ry74xBHQQz6AvfOYhOXmJqdP35fBSjdbdnFx5ySvxFurqPPzBnnXjSw8">Feedback</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/UM/UM-intro.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Unified Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-guide">Quick Start Guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-out-a-um-suite">Checking out a UM suite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examining-the-suite">Examining the suite</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#master-configuration">Master configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-flow">Task flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-summaries">Task summaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-suite">Running the suite</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ancil">install_ancil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-cold">install_cold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make-drivers">fcm_make_drivers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make2-drivers">fcm_make2_drivers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-atmos">retrieve_atmos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make-um">fcm_make_um</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#um-recon">um_recon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#um-forecast">um_forecast</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convpp">convpp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rose-arch">rose_arch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#housekeep">housekeep</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-the-outputs">Viewing the outputs</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-unified-model">
+<h1>The Unified Model<a class="headerlink" href="#the-unified-model" title="Link to this heading">#</a></h1>
+<p>The ACCESS modeling suite is reliant on the UK Met Office’s Unified Model (UM) for atmospheric simulations.</p>
+<p>The UM is a collection of Fortran-based executables built to simulate the future state of the atmosphere. It is designed to interface with land/surface and sea-surface data.</p>
+<p>The model is so named (i.e. “Unified”) because it contains a single set of code that can be applied across a diverse range of length and timescales; from urban weather forecasts at grid resolutions of a few hundred metres, to global climate model projections extending into next century at grid resolutions of hundreds of kilometres.</p>
+<p>You can access more detailed information about the UM here :
+<a class="reference external" href="https://21centuryweather.github.io/UM_summary_docs/introduction.html">https://21centuryweather.github.io/UM_summary_docs/introduction.html</a></p>
+<p>For now, let’s concentrate on running a very simple test suite, a ‘minimal working example’ to demonstrate how we can run the UM on <code class="docutils literal notranslate"><span class="pre">gadi</span></code> using a <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite.</p>
+<section id="quick-start-guide">
+<h2>Quick Start Guide<a class="headerlink" href="#quick-start-guide" title="Link to this heading">#</a></h2>
+<p>To run the UM quickly.</p>
+<ul class="simple">
+<li><p>Start a persistent session on <code class="docutils literal notranslate"><span class="pre">gadi</span></code> and login to it.</p></li>
+<li><p>Pass MOSRS authentication</p></li>
+<li><p>Load your <code class="docutils literal notranslate"><span class="pre">cylc</span></code> modules</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">rosie</span> <span class="pre">co</span> <span class="pre">u-dl058</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">cd</span> <span class="pre">~/roses/u-dl058</span></code></p></li>
+<li><p>In <code class="docutils literal notranslate"><span class="pre">~/roses/u-dl085/rose-suit.conf</span></code>, check you have write permissions to the folder <code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code>, defined as <code class="docutils literal notranslate"><span class="pre">/scratch/${PROJECT}/${USER}</span></code>. If you don’t know your default <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project, see <a class="reference external" href="https://opus.nci.org.au/spaces/Help/pages/230490489/FAQ...#FAQ...-'Permissiondenied'messagewhenworkingonanewproject.1">here</a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">$</span> <span class="pre">rose</span> <span class="pre">suite-run</span></code></p></li>
+</ul>
+</section>
+<section id="checking-out-a-um-suite">
+<h2>Checking out a UM suite<a class="headerlink" href="#checking-out-a-um-suite" title="Link to this heading">#</a></h2>
+<p>If you need to, repeat the steps of the previous tutorial to login to your persistent session and authenticate your MOSRS credentials. Then, checkout suite <code class="docutils literal notranslate"><span class="pre">u-dl058</span></code> using</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">rosie</span> <span class="n">co</span> <span class="n">u</span><span class="o">-</span><span class="n">dl058</span>
+</pre></div>
+</div>
+<p>This suite was initially developed by scientists at the Bureau of Meteorology to research ‘coupled’ Numerical Weather Prediction using separate atmospheric and ocean models. For this tutorial, we have removed all <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> logic related to ocean coupling so the suite performs a simple atmosphere/land simulation at low resolution.</p>
+</section>
+<section id="examining-the-suite">
+<h2>Examining the suite<a class="headerlink" href="#examining-the-suite" title="Link to this heading">#</a></h2>
+<p>The suite contains all the usual files you’ve become accustomed too inside a <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite:</p>
+<ul class="simple">
+<li><p>A <code class="docutils literal notranslate"><span class="pre">rose-app.conf</span></code> file to control the master configuration of the suite.</p></li>
+<li><p>A <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> file to control the task flow</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">app</span></code> directory to house <code class="docutils literal notranslate"><span class="pre">.conf</span></code> files for each application task.</p></li>
+</ul>
+<p>Let’s step through each task within this suite so we understand at a basic level, how the UM works on <code class="docutils literal notranslate"><span class="pre">gadi</span></code>.</p>
+<section id="master-configuration">
+<h3>Master configuration<a class="headerlink" href="#master-configuration" title="Link to this heading">#</a></h3>
+<p>Let’s quickly run through the master configuration file : <code class="docutils literal notranslate"><span class="pre">~/roses/u-dl085/rose-suite.conf</span></code></p>
+<p>This contains a list of <code class="docutils literal notranslate"><span class="pre">bash</span></code> environment variables which describe the following:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ANCILDATA</span></code> : Ancillary data directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code> : Output archive directory</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ARCHIVE_6HR</span></code> : Archiving temporal frequency</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ATM_PPN</span></code> : Number of processors for atmospheric tasks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">BUILD_UM</span></code> : Flag to compile our own UM executable</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CALENDAR</span></code> : Calendar type (important for long climate simulations)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPUTE_ACCOUNT</span></code> : Your gadi <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code> used for resource allocation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPUTE_HOST</span></code> : Name of supercomputer</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">COMPUTE_QUEUE</span></code> : PBS job queue used for simulations</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CONFIG_MODULE_NAME</span></code> : Extra module configuration data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CORE</span></code> : Type of CPU used in supercomputer environment</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DATES</span></code> : List of dates to run simulations for</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">EXTRACT_HOST</span></code> : operating system type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">HOUSEKEEP</span></code>: Flag to set housekeeping tasks</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">OCEANDIR</span></code> : Location of Ocean data</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PPN</span></code> : Number of processors (generic)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">QUEUE_PARALLEL</span></code> : PBS job queue type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">RUNTYPE</span></code> : Flag for ‘coupled’ (modeling both the ocean and atmosphere) or ‘uncoupled’ (atmosphere only) simulation.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SITE</span></code> : String to denote the supercomputer type</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">STOCHASTIC</span></code>: Flag for stochastic atmospheric physics</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TASKLENGTH</span></code> : Data for UM task control</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TASK_RUN</span></code> : Data for UM task control</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">TASK_TESTS</span></code> : Flag for UM task control</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UMDIR</span></code> : Master directory for UM files</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">UM_RESOLUTION</span></code> : Global atmospheric resolution</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_COMORPH</span></code> : Flag for CoMorph convection scheme</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">USE_DOUBLE_PREC</span></code> : Flag for numerical precision</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xios_path</span></code> : Directory of <code class="docutils literal notranslate"><span class="pre">xios</span></code> libraries used by intel compilers. XIOS is an XML input/output server used to handle coupling between the UM atmosphere and the NEMO ocean model.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">oasis3_mct_path</span></code> : Directory of intel libraries to compile this version of the UM which supports the <code class="docutils literal notranslate"><span class="pre">oasis3</span></code> coupler.</p></li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default value of <code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code> is <code class="docutils literal notranslate"><span class="pre">/scratch/${PROJECT}/${USER}/GC5_runs</span></code>. This directory <code class="docutils literal notranslate"><span class="pre">/scratch/${PROJECT}/${USER}/</span></code> must exist and you must have write permissions to it, otherwise your outputs won’t be saved. The value of the <code class="docutils literal notranslate"><span class="pre">bash</span></code> environment variable <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code> is set in the <code class="docutils literal notranslate"><span class="pre">.config/gadi-login.conf</span></code> file in your home directory. This is your ‘default’ <code class="docutils literal notranslate"><span class="pre">gadi</span></code> project. See <a class="reference external" href="https://opus.nci.org.au/spaces/Help/pages/230490489/FAQ...#FAQ...-'Permissiondenied'messagewhenworkingonanewproject.1">here</a> for more information.</p>
+<p>You can always manually edit the value of <code class="docutils literal notranslate"><span class="pre">ARCHIDIR</span></code> to override the value of <code class="docutils literal notranslate"><span class="pre">PROJECT</span></code> if you want. Just remember to <code class="docutils literal notranslate"><span class="pre">reload</span></code> the <code class="docutils literal notranslate"><span class="pre">rose</span></code> suite again to update the definitions used in the <code class="docutils literal notranslate"><span class="pre">~/cylc-run</span></code> directory.</p>
+</div>
+</section>
+<section id="task-flow">
+<h3>Task flow<a class="headerlink" href="#task-flow" title="Link to this heading">#</a></h3>
+<p>Let’s walk through the <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> file to determine the task flow.</p>
+<p>Before we get to the <code class="docutils literal notranslate"><span class="pre">graph</span></code> section, there are several <code class="docutils literal notranslate"><span class="pre">jinja</span></code> macros (defined using <code class="docutils literal notranslate"><span class="pre">{%</span> <span class="pre">%}</span></code> constructs) that do the following:</p>
+<ul class="simple">
+<li><p>Set an alias for the rose <code class="docutils literal notranslate"><span class="pre">TASK_RUN_COMMAND</span></code></p></li>
+<li><p>load the required <code class="docutils literal notranslate"><span class="pre">modules</span></code> on gadi</p></li>
+<li><p>Set some run-time options based on entries in the <code class="docutils literal notranslate"><span class="pre">rose-suite.conf</span></code> file, including:</p>
+<ul>
+<li><p>Numerical precision</p></li>
+<li><p>Archiving frequency</p></li>
+<li><p>‘CoMorph’ convection scheme</p></li>
+<li><p>Stochastic physics settings</p></li>
+</ul>
+</li>
+<li><p>Set aliases for dates based on the input <code class="docutils literal notranslate"><span class="pre">DATES</span></code></p></li>
+<li><p>Set the ensemble number to zero. This suite was originally designed to handle ensemble forecasting and there is ensemble logic embedded in many tasks and scripts. For simplicity’s sake, we have removed all the ensemble looping logic and just run the control forecast, i.e <code class="docutils literal notranslate"><span class="pre">I</span> <span class="pre">=</span> <span class="pre">000</span></code>.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">[cylc]</span></code> namespace is for all non task-related configurations. Here we set <code class="docutils literal notranslate"><span class="pre">UTC</span></code> mode to true. The <code class="docutils literal notranslate"><span class="pre">[events]</span></code> namespace allows us to sent notification emails after shutdown.</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">[scheduling]</span></code> namespace we define the number of cycle points based on the input dates. In this example, we only run a single forecast date : “20200116T00”</p>
+<p>In the <code class="docutils literal notranslate"><span class="pre">[dependencies]</span></code> namespace, we first define the graph to tasks that occur only once : <code class="docutils literal notranslate"><span class="pre">fcm_make_um</span></code>, <code class="docutils literal notranslate"><span class="pre">install_ancil</span></code>, <code class="docutils literal notranslate"><span class="pre">install_cold</span></code>, <code class="docutils literal notranslate"><span class="pre">fcm_make_drivers</span></code> and <code class="docutils literal notranslate"><span class="pre">fc_make2_drivers</span></code>.</p>
+<p>We then use a <code class="docutils literal notranslate"><span class="pre">jinja</span></code> macro to loop over all possible to dates to define the tasks that run for every forecast date: <code class="docutils literal notranslate"><span class="pre">um_recon</span></code>, <code class="docutils literal notranslate"><span class="pre">um_forecast</span></code>, <code class="docutils literal notranslate"><span class="pre">convpp</span></code>, <code class="docutils literal notranslate"><span class="pre">rose_arch</span></code> and <code class="docutils literal notranslate"><span class="pre">housekeep</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">jinja</span></code> macro is defined using <code class="docutils literal notranslate"><span class="pre">{%-</span> <span class="pre">for</span> <span class="pre">date</span> <span class="pre">in</span> <span class="pre">SDATES</span> <span class="pre">:</span> <span class="pre">%}</span></code> and <code class="docutils literal notranslate"><span class="pre">{%-</span> <span class="pre">endfor</span> <span class="pre">%}</span></code>.</p>
+<p>Within this loop, the <code class="docutils literal notranslate"><span class="pre">[^]</span></code> syntax is <code class="docutils literal notranslate"><span class="pre">cylc</span></code> shorthand for ‘the initial cycle point’, see:</p>
+<p><a class="reference external" href="https://cylc.github.io/cylc-doc/7.8.8/html/suite-config.html#referencing-the-initial-and-final-cycle-points">https://cylc.github.io/cylc-doc/7.8.8/html/suite-config.html#referencing-the-initial-and-final-cycle-points</a></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[runtime]</span></code> namespace then defines the environment variables and PBS job parameters for each task.  The <code class="docutils literal notranslate"><span class="pre">[root]</span></code> namespace defines common variables and parameters used by most scripts.</p>
+<p>Next, there are namespaces for each separate family of tasks. The <code class="docutils literal notranslate"><span class="pre">[ARCHIVE]</span></code> namespace defines the value for <code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code> defined in <code class="docutils literal notranslate"><span class="pre">rose-suite.conf</span></code>.</p>
+<p>Below that, there are several dictionaries and macros used to define PBS queue and resource requirements for a given resolution. The two main computational tasks in the suite are the UM ‘Reconfiguration’ task, and the UM atmospheric forecast task. By default, this suite runs at the lowest available resolution (n320e). The <code class="docutils literal notranslate"><span class="pre">jinja</span></code> dictionary <code class="docutils literal notranslate"><span class="pre">UM_RES</span></code> will return a 10-minute PBS job walltime (<code class="docutils literal notranslate"><span class="pre">&quot;PT10M&quot;</span></code>) to the <code class="docutils literal notranslate"><span class="pre">cylc</span></code> variable <code class="docutils literal notranslate"><span class="pre">RCF_WALL</span></code> and a 4-hour job walltime (<code class="docutils literal notranslate"><span class="pre">&quot;PT4H&quot;</span></code>)to the variable <code class="docutils literal notranslate"><span class="pre">ATM_WALL</span></code>. Other variables are used with the <code class="docutils literal notranslate"><span class="pre">jinja</span></code> macro <code class="docutils literal notranslate"><span class="pre">node</span></code> to provide the number of compute nodes for the reconfiguration (<code class="docutils literal notranslate"><span class="pre">NODE_RCF</span></code>) and atmospheric forecast (<code class="docutils literal notranslate"><span class="pre">NODE_ATM</span></code>) tasks respectively.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">[UM]</span></code> and <code class="docutils literal notranslate"><span class="pre">[RECONFIGURE]</span></code> namespaces then specify the resources for each task. Below this, there are separate namespaces (in lower case) for each specific task. Each task will inherit environmental parameters defined in the earlier sections.</p>
+<p>This <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> file uses an include statement <code class="docutils literal notranslate"><span class="pre">%include</span> <span class="pre">site/nci_gadi.rc</span></code> to include information specific to gadi. When the suite is run, the contents of <code class="docutils literal notranslate"><span class="pre">site/nci_gadi.rc</span></code> will be included in the overall <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> file that is copied to the run directory <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058</span></code>.</p>
+<p>For brevity’s sake, we won’t examine the contents of every namespace within <code class="docutils literal notranslate"><span class="pre">site/nci_gadi.rc</span></code>. But we will note the contents of this file which provides information such as:</p>
+<ul class="simple">
+<li><p>PBS walltime limits</p></li>
+<li><p>PBS compute queue</p></li>
+<li><p>PBS memory requirements</p></li>
+<li><p>PBS storage requiremetns</p></li>
+<li><p>Lists of modules to be loaded</p></li>
+<li><p>location of ancillary files
+for each task environment.</p></li>
+</ul>
+<p>You can see how the suite runs by executing</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rose suite-run -- --mode=simulation
+</pre></div>
+</div>
+<p>from your <code class="docutils literal notranslate"><span class="pre">~/roses/u-dl058</span></code> directory. This command will run through each task in a ‘simulated mode’ without actually submitting a PBS job.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure you log into into your persistent session and load your <code class="docutils literal notranslate"><span class="pre">cylc</span></code> modules first before trying to run a <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code> suite!</p>
+</div>
+<p>The graph of the suite looks like this.</p>
+<p><img alt="UM task graph " src="../_images/flow.png" /></p>
+</section>
+<section id="task-summaries">
+<h3>Task summaries<a class="headerlink" href="#task-summaries" title="Link to this heading">#</a></h3>
+<p>Below is a summary of each task. Each task is called using the commands placed in the <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> <code class="docutils literal notranslate"><span class="pre">[root]</span></code> namespace, i.e.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>env-script = eval $(rose task-env)
+script = {{TASK_RUN_COMMAND}}
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">TASK_RUN_COMMAND</span></code> is defined using the <code class="docutils literal notranslate"><span class="pre">jinja</span></code> macro</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="o">%</span> <span class="nb">set</span> <span class="n">TASK_RUN_COMMAND</span> <span class="o">=</span> <span class="s2">&quot;rose task-run --verbose -O &#39;(&quot;</span> <span class="o">+</span> <span class="n">SITE</span> <span class="o">+</span> <span class="s2">&quot;)&#39;&quot;</span> <span class="o">%</span><span class="p">}</span>
+</pre></div>
+</div>
+<p>The use of <code class="docutils literal notranslate"><span class="pre">rose</span> <span class="pre">task-run</span></code> was covered in the third rose tutorial we covered earlier. If you need refresh your memory, you can review the tutorial here:</p>
+<p><a class="reference external" href="https://metomi.github.io/rose/2019.01.8/html/tutorial/rose/suites.html">https://metomi.github.io/rose/2019.01.8/html/tutorial/rose/suites.html</a></p>
+<p>which states “When run, rose task-run searches for an application with the same name as the Cylc task in the app/ directory.”</p>
+</section>
+</section>
+<section id="running-the-suite">
+<h2>Running the suite<a class="headerlink" href="#running-the-suite" title="Link to this heading">#</a></h2>
+<p>Let’s manually run through each task in this suite, now that we know the order in which tasks are created via the graph above. We can run the suite in <code class="docutils literal notranslate"><span class="pre">hold</span></code> mode and manually trigger each task. Type</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ rose suite-run -- --hold
+
+</pre></div>
+</div>
+<p>in your <code class="docutils literal notranslate"><span class="pre">~/rose/u-dl085</span></code> directory. This will bring up the suite where each task family is coloured in pink. Left-click on the arrows of each task family to expand them.</p>
+<p><img alt="UM task graph " src="../_images/hold.png" /></p>
+<p>Now right-click on <code class="docutils literal notranslate"><span class="pre">install_ancil</span></code> and then left-click <code class="docutils literal notranslate"><span class="pre">Trigger</span> <span class="pre">-&gt;</span> <span class="pre">Run</span> <span class="pre">now</span></code>.</p>
+<p><img alt="Triggering a UM task " src="../_images/trigger.png" /></p>
+<section id="install-ancil">
+<h3>install_ancil<a class="headerlink" href="#install-ancil" title="Link to this heading">#</a></h3>
+<p>This task is run from the <code class="docutils literal notranslate"><span class="pre">app/install_ancil/</span></code> directory. It builds symbolic links between the ancillary files located in the <code class="docutils literal notranslate"><span class="pre">${UM_ANCIL_DIR}/${GL_UM_RES}</span></code> directory on gadi and your local <code class="docutils literal notranslate"><span class="pre">cylc</span></code> working directory <code class="docutils literal notranslate"><span class="pre">$ROSE_DATA/etc/ancil_gl/</span></code>.</p>
+<p>The full list of ancillary files required is contained in <code class="docutils literal notranslate"><span class="pre">app/install_ancil/rose-app.conf</span></code>.</p>
+<p>When this task completes, the directory <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/data/etc/ancil_gl/</span></code>will be populated with symbolic links to all the ancillary files.</p>
+<p>You can right-click on the task again (which will turn grey after it has successfully) and view the <code class="docutils literal notranslate"><span class="pre">job.out</span></code> file. The <code class="docutils literal notranslate"><span class="pre">cylc</span></code> scheduler will nicely capture all the PBS standard output and collate it into the <code class="docutils literal notranslate"><span class="pre">job.out</span></code> file.</p>
+<p><img alt="Job output" src="../_images/job.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Remember you can also look at the job outputs manually. The latest output for this task will be located at
+<code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/log/job/20200116T0000Z/install_ancil/NN/job.out</span> </code></p>
+</div>
+<p>Let’s follow the same method and trigger all the remaining tasks in sequence.</p>
+</section>
+<section id="install-cold">
+<h3>install_cold<a class="headerlink" href="#install-cold" title="Link to this heading">#</a></h3>
+<p>This task uses the <code class="docutils literal notranslate"><span class="pre">bash</span></code> script <code class="docutils literal notranslate"><span class="pre">app/install_cold/bin/install_ver.sh</span></code>. It will install
+<code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/data/etc/um_vertlevs</span></code> to define the vertical levels of our grid.</p>
+<p>It will also link the directory <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_surf</span></code> to a directory on gadi with files associated with the UM’s land-surface model ‘JULES’.</p>
+</section>
+<section id="fcm-make-drivers">
+<h3>fcm_make_drivers<a class="headerlink" href="#fcm-make-drivers" title="Link to this heading">#</a></h3>
+<p>This task uses the script <code class="docutils literal notranslate"><span class="pre">app/fcm_make_drivers/</span></code> to populate the following directories with <code class="docutils literal notranslate"><span class="pre">python</span></code> files used to compile the <code class="docutils literal notranslate"><span class="pre">UM</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_drivers/mirror/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_drivers/extract/</span></code></p></li>
+</ul>
+</section>
+<section id="fcm-make2-drivers">
+<h3>fcm_make2_drivers<a class="headerlink" href="#fcm-make2-drivers" title="Link to this heading">#</a></h3>
+<p>This repeats the same script but with different environment variables to create and populate the following directories with <code class="docutils literal notranslate"><span class="pre">python</span></code> files used to compile the <code class="docutils literal notranslate"><span class="pre">UM</span></code>.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_drivers/build/</span></code></p></li>
+</ul>
+</section>
+<section id="retrieve-atmos">
+<h3>retrieve_atmos<a class="headerlink" href="#retrieve-atmos" title="Link to this heading">#</a></h3>
+<p>This task is launched using <code class="docutils literal notranslate"><span class="pre">bin/retrieve_atmos_startdumps.sh</span></code>. It will copy a ‘UM’ atmospheric start-dump to <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/cycle/20200116T0000Z/</span></code></p>
+<p>The start dump file <code class="docutils literal notranslate"><span class="pre">20200116T0000Z_engl_t+3_000</span></code> is a ‘UM’ ‘PP’ file, i.e. a fortran binary record file created by the ‘UM’ itself. You will not be able to view it with a netCDF reader, but you can use the <code class="docutils literal notranslate"><span class="pre">xconv</span></code> utility to view it on gadi.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ module use /g/data/access/modules/
+$ module load xconv
+$ xconv 20200116T0000Z_engl_t+3_000 &amp;
+</pre></div>
+</div>
+<p>This file is very large (17 Gb!) and it contains both single-level and multi-level variables on a global 1280x 960 grid, with up to 71 levels.</p>
+<p>If you plot the surface air temperature using <code class="docutils literal notranslate"><span class="pre">xconv</span></code> you should generate the following image.</p>
+<p><img alt="Start dump" src="../_images/dump.png" /></p>
+<p>You can also load ‘UM’ files using the <code class="docutils literal notranslate"><span class="pre">ants</span></code> and <code class="docutils literal notranslate"><span class="pre">iris</span></code> python modules (developed by the UK Met Office) which are included in the CLEX/ACCESS-NRI <code class="docutils literal notranslate"><span class="pre">analysis3</span></code> python environment on gadi.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ants</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
+
+<span class="c1"># This will return a list of iris cube objects</span>
+<span class="n">dump</span> <span class="o">=</span> <span class="n">ants</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s1">&#39;20200116T0000Z_engl_t+3_000&#39;</span><span class="p">)</span>
+
+<span class="c1"># This will extract the cube for surface temperature</span>
+<span class="n">temp</span><span class="p">,</span> <span class="o">=</span> <span class="p">[</span> <span class="n">cube</span> <span class="k">for</span> <span class="n">cube</span> <span class="ow">in</span> <span class="n">dump</span> <span class="k">if</span> <span class="n">cube</span><span class="o">.</span><span class="n">standard_name</span> <span class="o">==</span> <span class="s1">&#39;surface_temperature&#39;</span> <span class="p">]</span>
+
+<span class="c1"># This will convert the cube into an Xarray object</span>
+<span class="n">temp_da</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">DataArray</span><span class="o">.</span><span class="n">from_iris</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span>
+
+<span class="c1"># A simple plot</span>
+<span class="n">temp_da</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><img alt="Start dump_da" src="../_images/temp_da.png" /></p>
+<p>This dump file will serve as the initial condition for out atmospheric forecast.</p>
+</section>
+<section id="fcm-make-um">
+<h3>fcm_make_um<a class="headerlink" href="#fcm-make-um" title="Link to this heading">#</a></h3>
+<p>This task will compile a version of the ‘UM’ for us to run our forecast. It executes the files in <code class="docutils literal notranslate"><span class="pre">app/fcm_make_um</span></code> and creates outputs in <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_um</span></code>. The most important outputs are</p>
+<ul class="simple">
+<li><p>The UM atmospheric executable and wrapper scripts located in <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_um/build-atmos/bin/um-atmos</span></code></p></li>
+<li><p>The UM reconfigure executable and wrapper scripts located in <code class="docutils literal notranslate"><span class="pre">~/cylc-run/u-dl058/share/fcm_make_um/build-recon/bin/um-atmos</span></code></p></li>
+</ul>
+<p>Some notes on the <code class="docutils literal notranslate"><span class="pre">fcm</span> <span class="pre">make</span></code> process are available here:
+<a class="reference external" href="https://21centuryweather.github.io/UM_summary_docs/code.html#compilation">https://21centuryweather.github.io/UM_summary_docs/code.html#compilation</a></p>
+</section>
+<section id="um-recon">
+<h3>um_recon<a class="headerlink" href="#um-recon" title="Link to this heading">#</a></h3>
+<p>This task uses the UM reconfigure executables to take all the input information already assembled (start-dumps, ancillary data) and ‘reconfigure’ it for the required target grid. Most of the time the reconfigure step is just a fancy name for regridding. The task uses the files in <code class="docutils literal notranslate"><span class="pre">app/um</span></code>. Note the <code class="docutils literal notranslate"><span class="pre">app/um/rose-app.conf</span></code> file has two <code class="docutils literal notranslate"><span class="pre">command</span></code> entries:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">command</span><span class="p">]</span>
+<span class="n">default</span><span class="o">=</span><span class="n">run_model</span>
+<span class="n">recon</span><span class="o">=</span><span class="n">um</span><span class="o">-</span><span class="n">recon</span>
+</pre></div>
+</div>
+<p>So the same configuration file can be used to run two different executables depending on the command specified by the <code class="docutils literal notranslate"><span class="pre">cylc</span></code> workflow engine. Note the <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code> contains the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="p">[[</span><span class="n">um_recon</span><span class="p">]]</span>
+        <span class="n">inherit</span> <span class="o">=</span> <span class="n">UM</span><span class="p">,</span> <span class="n">RCF_RESOURCE</span><span class="p">,</span> <span class="n">RECONFIGURE</span>
+        <span class="n">script</span> <span class="o">=</span> <span class="p">{{</span><span class="n">TASK_RUN_COMMAND</span><span class="p">}}</span> <span class="o">--</span><span class="n">command</span><span class="o">-</span><span class="n">key</span><span class="o">=</span><span class="n">recon</span>
+</pre></div>
+</div>
+<p>If you want to know more about the UM reconfiguration process, you click here: <a class="reference external" href="https://21centuryweather.github.io/UM_summary_docs/using.html#reconfiguration">https://21centuryweather.github.io/UM_summary_docs/using.html#reconfiguration</a></p>
+<p>The standard output (or ‘stdout’ for short) of the UM reconfigure executable is long and rather interesting. You can scroll through the stdout contained in the <code class="docutils literal notranslate"><span class="pre">um_recon</span></code> by accessing the <code class="docutils literal notranslate"><span class="pre">um_recon</span></code> <code class="docutils literal notranslate"><span class="pre">job.out</span></code> file, either via the <code class="docutils literal notranslate"><span class="pre">cylc</span></code> gui or using a file editor of choice. It is very common for <code class="docutils literal notranslate"><span class="pre">um_recon</span></code> to fail when running a new suite configuration for the first time.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Knowing where to find error messages in the <code class="docutils literal notranslate"><span class="pre">um_recon</span></code> task is very important, as reconfiguration errors are one of the most common sources of problems when building a new suite (especially a regional model) with the UM.</p>
+</div>
+<p>Note how the reconfigure executable:</p>
+<ul class="simple">
+<li><p>Splits itself across various ‘PEs’ or ‘Processing Elements’.</p></li>
+<li><p>The jobs is submitted 48 CPUs on gadi, although the UM only uses 36 because of the specification of <code class="docutils literal notranslate"><span class="pre">nproc_x</span></code> and <code class="docutils literal notranslate"><span class="pre">nproc_y</span></code>:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Parallel</span> <span class="n">Reconfiguration</span> <span class="n">using</span>      <span class="mi">36</span> <span class="n">procesor</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="n">divided</span> <span class="n">into</span> <span class="n">a</span> <span class="n">LPG</span> <span class="k">with</span> <span class="n">nproc_x</span><span class="o">=</span>      <span class="mi">6</span><span class="ow">and</span> <span class="n">nproc_y</span><span class="o">=</span>      <span class="mi">6</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>It assigns various input files to <code class="docutils literal notranslate"><span class="pre">fortran</span> <span class="pre">Unit</span></code> numbers for reading.</p></li>
+<li><p>It reads the land/sea mask file and uses that to define the output grid</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">IO</span><span class="p">:</span> <span class="n">Open</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="mi">548</span><span class="o">/</span><span class="n">pag548</span><span class="o">/</span><span class="n">cylc</span><span class="o">-</span><span class="n">run</span><span class="o">/</span><span class="n">u</span><span class="o">-</span><span class="n">dl058</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ancil_gl</span><span class="o">/</span><span class="n">qrparm</span><span class="o">.</span><span class="n">mask</span> <span class="n">on</span> <span class="n">unit</span>  <span class="mi">12</span>
+
+
+<span class="n">Output</span> <span class="n">grid</span>
+
+<span class="mi">0</span>    <span class="mi">1</span>  <span class="mi">307200</span>   <span class="mi">3</span>     <span class="mi">0</span>    <span class="mi">30</span>     <span class="mi">1</span>  <span class="n">LAND</span> <span class="n">MASK</span> <span class="p">(</span><span class="n">No</span> <span class="n">halo</span><span class="p">)</span> <span class="p">(</span><span class="n">LAND</span><span class="o">=</span><span class="n">TRUE</span><span class="p">)</span>
+<span class="n">CLOSE</span><span class="p">:</span> <span class="n">File</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="mi">548</span><span class="o">/</span><span class="n">pag548</span><span class="o">/</span><span class="n">cylc</span><span class="o">-</span><span class="n">run</span><span class="o">/</span><span class="n">u</span><span class="o">-</span><span class="n">dl058</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">data</span><span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">ancil_gl</span><span class="o">/</span><span class="n">qrparm</span><span class="o">.</span><span class="n">mask</span> <span class="n">Closed</span> <span class="n">on</span> <span class="n">Unit</span> <span class="mi">12</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>It reads the input grid from the input startdump file <code class="docutils literal notranslate"><span class="pre">20200116T0000Z_engl_t+3_000</span></code>.</p></li>
+<li><p>It computes (on the new grid) all the required fields to begin an atmospheric forecast.</p></li>
+<li><p>It outputs these fields to `~/cylc-run/u-dl058/share/cycle/20200116T0000Z/umgla000.astart’.</p></li>
+</ul>
+<p>Note the resolution of this <code class="docutils literal notranslate"><span class="pre">.astart</span></code> file is 640x480, i.e. all input fields have been regridded from the higher resolution start-dump grid to a much coarser grid which corresponds to the specified <code class="docutils literal notranslate"><span class="pre">n320</span></code> resolution.</p>
+<p>Note <code class="docutils literal notranslate"><span class="pre">n320</span></code> refers to a spectral representation of global resolution. Some data in the UM is computed using spectral fields. See <a class="reference external" href="https://www.ecmwf.int/sites/default/files/elibrary/2016/17262-new-grid-ifs.pdf">https://www.ecmwf.int/sites/default/files/elibrary/2016/17262-new-grid-ifs.pdf</a> for more information.</p>
+</section>
+<section id="um-forecast">
+<h3>um_forecast<a class="headerlink" href="#um-forecast" title="Link to this heading">#</a></h3>
+<p>This task initialises the atmospheric forecast, using the same <code class="docutils literal notranslate"><span class="pre">app/um</span></code> files used by <code class="docutils literal notranslate"><span class="pre">um_recon</span></code>. Let’s look through the stdout of the atmospheric forecast task, either via the <code class="docutils literal notranslate"><span class="pre">cylc</span></code> gui or using a file editor. It is very common when running a new suite configuration for the first time that the atmospheric forecast task may fail.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Knowing where to find error messages in the <code class="docutils literal notranslate"><span class="pre">um_forecast</span></code> task is very important, as numerical errors encountered in the atmospheric forecast step are a common sources of problems when running the UM.</p>
+</div>
+<p>Note the atmospheric executable:</p>
+<ul class="simple">
+<li><p>opens the <code class="docutils literal notranslate"><span class="pre">.astart</span></code> file.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">OPEN</span><span class="p">:</span> <span class="n">File</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="mi">548</span><span class="o">/</span><span class="n">pag548</span><span class="o">/</span><span class="n">cylc</span><span class="o">-</span><span class="n">run</span><span class="o">/</span><span class="n">u</span><span class="o">-</span><span class="n">dl058</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">cycle</span><span class="o">/</span><span class="mi">20200116</span><span class="n">T0000Z</span><span class="o">/</span><span class="n">umgla000</span><span class="o">.</span><span class="n">astart</span> <span class="n">to</span> <span class="n">be</span> <span class="n">Opened</span> <span class="n">on</span> <span class="n">Unit</span> <span class="mi">19</span> <span class="n">Exists</span>
+<span class="n">IO</span><span class="p">:</span> <span class="n">Open</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="mi">548</span><span class="o">/</span><span class="n">pag548</span><span class="o">/</span><span class="n">cylc</span><span class="o">-</span><span class="n">run</span><span class="o">/</span><span class="n">u</span><span class="o">-</span><span class="n">dl058</span><span class="o">/</span><span class="n">share</span><span class="o">/</span><span class="n">cycle</span><span class="o">/</span><span class="mi">20200116</span><span class="n">T0000Z</span><span class="o">/</span><span class="n">umgla000</span><span class="o">.</span><span class="n">astart</span> <span class="n">on</span> <span class="n">unit</span>  <span class="mi">19</span>
+<span class="n">loadHeader</span><span class="p">:</span> <span class="n">Model</span> <span class="n">Version</span><span class="p">:</span> <span class="mf">13.2</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Begins the first timestep</p></li>
+</ul>
+<div class="highlight-Atm_Step: notranslate"><div class="highlight"><pre><span></span>EG_SISL_Resetcon: calculate reference profile
+Initialising coarse grids...
+Number of multigrid level requested         :     3
+Number of multigrid level allowed (lon/lat) : (   5 /    5 )
+Level     1:    640 x    480 x   70 =       21504000
+Level     2:    320 x    315 x   70 =        7056000
+Level     3:    160 x    194 x   70 =        2172800
+grid complexity =   1.4292 [ lower bound =   1.3125 ]
+...Done
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Outputs the maximum vertical velocity at this timestep. Often the forecast model will fail with large, unphysical maximum vertical velocities. Sometimes they can approach the speed of sound ;)  These ‘grid-point storms’ are often caused by incorrect or discontinuous data in regions of high orography. The lat/long co-ordinates of the maximum vertical velocity will help you locate bugs. The output of the minimum theta value may also be useful. For high resolution models of Australian region, the Papua New Guinea highlands is often a source of error.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">1</span> <span class="n">Maximum</span> <span class="n">vertical</span> <span class="n">velocity</span> <span class="n">at</span> <span class="n">timestep</span>                      <span class="mi">0</span>       <span class="n">Max</span> <span class="n">w</span> <span class="n">this</span> <span class="n">run</span>
+<span class="n">w_max</span>   <span class="n">level</span>  <span class="n">proc</span>         <span class="n">position</span>             <span class="n">run</span> <span class="n">w_max</span> <span class="n">level</span> <span class="n">timestep</span>
+<span class="mf">0.225E+01</span>  <span class="mi">40</span>    <span class="mi">139</span>   <span class="mf">64.1</span><span class="n">deg</span> <span class="n">W</span>    <span class="o">-</span><span class="mf">23.8</span><span class="n">deg</span> <span class="n">S</span>    <span class="mf">0.225E+01</span>   <span class="mi">40</span>     <span class="mi">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>The output of the the atmospheric model in this suite integrates forward in time in 12 minute intervals.</p></li>
+<li><p>You can use the <code class="docutils literal notranslate"><span class="pre">bash</span></code> app <code class="docutils literal notranslate"><span class="pre">grep</span></code> to search for all the maximum timesteps in <code class="docutils literal notranslate"><span class="pre">job.out</span></code> and then extract the digits of the subsequent line, e.g.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ grep -A 1 w_max job.out | grep -P &#39;(^\d+)&#39;
+0.225E+01  40    139   64.1deg W    -23.8deg S    0.225E+01   40     0
+0.125E+01  67    325  151.9deg W     57.6deg N    0.225E+01   40     0
+0.148E+01  67    325  151.3deg W     57.9deg N    0.225E+01   40     0
+0.120E+01  68    164   57.9deg W    -19.3deg S    0.225E+01   40     0
+0.124E+01  67    325  150.8deg W     57.9deg N    0.225E+01   40     0
+0.120E+01  68    122   40.5deg E    -24.9deg S    0.225E+01   40     0
+</pre></div>
+</div>
+<p>etc.
+This task ends by writing the following files in `~/cylc-run/u-dl058/share/cycle/20200116T0000Z/’:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">umglaa_pa000</span></code> to <code class="docutils literal notranslate"><span class="pre">umglaa_pa024</span></code> in six hourly intervals</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">umglaa_pb000</span></code> to <code class="docutils literal notranslate"><span class="pre">umglaa_pa024</span></code> in a 24 hourly interval</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">umglaa_pc000</span></code> to <code class="docutils literal notranslate"><span class="pre">umglaa_pc024</span></code> in a 24 hourly interval</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">en000_umgla.daily</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">en000_umgla.ecyc</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">en000_umgla.espec</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">en000_umgla.trmm</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">en000_umgla.toarad</span></code></p></li>
+</ul>
+<p>These are all UM binary ‘pp’ files containing a variety of atmospheric variables on various grids. The STASH settings in the UM namelists will determine which variables are output and at what frequency.</p>
+</section>
+<section id="convpp">
+<h3>convpp<a class="headerlink" href="#convpp" title="Link to this heading">#</a></h3>
+<p>This task runs various scripts located in <code class="docutils literal notranslate"><span class="pre">app/convpp</span></code> to convert these ‘pp’ files to netCDF format. The converted netCDF files are located in `~/cylc-run/u-dl058/share/cycle/20200116T0000Z/nc’</p>
+</section>
+<section id="rose-arch">
+<h3>rose_arch<a class="headerlink" href="#rose-arch" title="Link to this heading">#</a></h3>
+<p>This task uses scripts located in <code class="docutils literal notranslate"><span class="pre">app/rose_arch</span></code> to copy the netCDF files to the archive directory <code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code> specified in <code class="docutils literal notranslate"><span class="pre">rose-suite.conf</span></code>.</p>
+</section>
+<section id="housekeep">
+<h3>housekeep<a class="headerlink" href="#housekeep" title="Link to this heading">#</a></h3>
+<p>This task runs a very simple command in <code class="docutils literal notranslate"><span class="pre">suite.rc</span></code>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>script = rm -r $ROSE_DATAC
+</pre></div>
+</div>
+<p>which deletes the directory <code class="docutils literal notranslate"><span class="pre">/cylc-run/u-dl058/share/cycle/20200116T0000Z/</span></code>.</p>
+<p>Congratulations! You’ve just run your first UM suite using <code class="docutils literal notranslate"><span class="pre">rose/cylc</span></code></p>
+</section>
+</section>
+<section id="viewing-the-outputs">
+<h2>Viewing the outputs<a class="headerlink" href="#viewing-the-outputs" title="Link to this heading">#</a></h2>
+<p>The suite will output the netCDF files to the location defined in <code class="docutils literal notranslate"><span class="pre">ARCHDIR</span></code> in the <code class="docutils literal notranslate"><span class="pre">rose-suite.conf</span></code> file, which by default is equal to</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ARCHDIR</span><span class="o">=</span><span class="s1">&#39;/scratch/$</span><span class="si">{PROJECT}</span><span class="s1">/$</span><span class="si">{USER}</span><span class="s1">/GC5_runs&#39;</span>
+</pre></div>
+</div>
+<p>A simple python notebook to load the data in this and compare it other suite output is available at</p>
+<p><a class="github reference external" href="https://github.com/21centuryweather/UM_configuration_tools/blob/main/GC5_compare.ipynb">21centuryweather/UM_configuration_tools</a></p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./UM"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../mosrs/mosrs-intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">MOSRS</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="trouble-shooting.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Trouble Shooting</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quick-start-guide">Quick Start Guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-out-a-um-suite">Checking out a UM suite</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examining-the-suite">Examining the suite</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#master-configuration">Master configuration</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-flow">Task flow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#task-summaries">Task summaries</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-suite">Running the suite</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ancil">install_ancil</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-cold">install_cold</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make-drivers">fcm_make_drivers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make2-drivers">fcm_make2_drivers</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieve-atmos">retrieve_atmos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fcm-make-um">fcm_make_um</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#um-recon">um_recon</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#um-forecast">um_forecast</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convpp">convpp</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rose-arch">rose_arch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#housekeep">housekeep</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#viewing-the-outputs">Viewing the outputs</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 21st Century Weather Software Engineering Team
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

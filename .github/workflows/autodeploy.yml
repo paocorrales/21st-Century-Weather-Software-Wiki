@@ -34,7 +34,7 @@ jobs:
     # Build the book
     - name: Build the book
       run: |
-        jupyter_book build . 
+        python -m jupyter_book build . 
 
     # Deploy the book's HTML to gh-pages branch
     - name: GitHub Pages action
